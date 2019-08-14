@@ -80,29 +80,29 @@
 }
 - (void)orderDishesBtnWithPressed {
     NSMutableArray* vegetablesArrs = [NSMutableArray arrayWithObjects:
-                                      @"孜然杏鲍菇",
+                                      @"孜然杏鲍菇🍄",
                                       @"麻辣豆腐",
                                       @"蒜蓉空心菜",
-                                      @"香煎土豆",
+                                      @"香煎土豆🥔",
                                       @"凉拌莴笋丝",
                                       @"青椒炒杏鲍菇",
                                       @"西蓝花🥦",
                                       @"红烧茄子🍆",
                                       @"干锅有机花菜",
-                                      @"蚝油生菜",
-                                      @"鸡蛋卷", nil];
+                                      @"蚝油生菜🥬",
+                                      @"鸡蛋卷🥚", nil];
     NSMutableArray* meatArrs = [NSMutableArray arrayWithObjects:
                                 @"椒盐排条",
-                                @"可乐鸡翅",
+                                @"可乐鸡翅🥤",
                                 @"玉米排骨汤",
-                                @"小炒肉",
+                                @"小炒肉🥩",
                                 @"糖醋排骨",
-                                @"肉末茄子",
-                                @"辣子鸡丁",
-                                @"红烧肉",
+                                @"肉末茄子🍆",
+                                @"辣子鸡丁🍗",
+                                @"红烧肉🥩",
                                 @"蛋黄焗鸡翅",
-                                @"蒜蓉粉丝虾",
-                                @"鱼香肉丝", nil];
+                                @"蒜蓉粉丝虾🦐",
+                                @"鱼香肉丝🥩", nil];
     [self randomMenuWithVegetablesArrs:vegetablesArrs meatArrs:meatArrs];
 }
 - (void)randomMenuWithVegetablesArrs:(NSMutableArray*)vegetablesArrs meatArrs:(NSMutableArray*)meatArrs {
