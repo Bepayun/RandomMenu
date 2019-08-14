@@ -71,7 +71,8 @@
     // 早饭
     _breakfastBtn = [self menuBtns];
     [_breakfastBtn setTitle:@"早餐菜单" forState:UIControlStateNormal];
-    [_breakfastBtn addTarget:self action:@selector(breakfastBtnWithPressed) forControlEvents:UIControlEventTouchUpInside];
+    [_breakfastBtn addTarget:self action:@selector(breakfastBtnWithPressed)
+            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.breakfastBtn];
     //
     _breakfastLabel = [self menuLabels];
@@ -82,7 +83,8 @@
     _menuBtn = [self menuBtns];
     _menuBtn.frame = CGRectMake(25, 200, 80, 40);
     [_menuBtn setTitle:@"中饭菜单" forState:UIControlStateNormal];
-    [_menuBtn addTarget:self action:@selector(orderDishesBtnWithPressed) forControlEvents:UIControlEventTouchUpInside];
+    [_menuBtn addTarget:self action:@selector(orderDishesBtnWithPressed)
+       forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.menuBtn];
     //
     _vegetablesLabel = [self menuLabels];
@@ -97,7 +99,8 @@
     // 晚饭
     _dinnerBtn = [self menuBtns];
     [_dinnerBtn setTitle:@"晚饭菜单" forState:UIControlStateNormal];
-    [_dinnerBtn addTarget:self action:@selector(dinnerBtnWithPressed) forControlEvents:UIControlEventTouchUpInside];
+    [_dinnerBtn addTarget:self action:@selector(dinnerBtnWithPressed)
+         forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.dinnerBtn];
     //
     _dinnerLabel = [self menuLabels];
@@ -166,24 +169,32 @@
                                      @"包子、水果",
                                      @"紫薯、水果",
                                      @"八宝粥、水果", nil];
-    if (_recordingBreakfast.count > 7) {
-        [_recordingBreakfast removeAllObjects];
+    
+    [self filterMenuWithRecording:_recordingBreakfast
+                         menuArrs:breakfastArrs
+                     displayLabel:_breakfastLabel];
+}
+- (void)filterMenuWithRecording:(NSMutableArray*)recordingArrs
+                       menuArrs:(NSMutableArray*)menuArrs
+                   displayLabel:(UILabel*)displayLabel {
+    if (recordingArrs.count > 7) {
+        [recordingArrs removeAllObjects];
     }
-    NSInteger breakfastIndex = 0;
-    NSInteger breakfastCount = breakfastArrs.count;
-    while (breakfastIndex < breakfastCount) {
-        breakfastIndex ++;
-        if (breakfastArrs.count == 0) {
+    NSInteger menuIndex = 0;
+    NSInteger menuCount = menuArrs.count;
+    while (menuIndex < menuCount) {
+        menuIndex ++;
+        if (menuArrs.count == 0) {
             break;
         }
-        NSString* breakfastStr = breakfastArrs[arc4random()%breakfastArrs.count];
+        NSString* menuStr = menuArrs[arc4random()%menuArrs.count];
         
-        if (![_recordingBreakfast containsObject:breakfastStr]) {
-            [breakfastArrs removeObject:breakfastStr];
-            [_recordingBreakfast addObject:breakfastStr];
-            _breakfastLabel.hidden = NO;
-            _breakfastLabel.text = breakfastStr;
-            NSLog(@"%@",breakfastStr);
+        if (![recordingArrs containsObject:menuStr]) {
+            [menuArrs removeObject:menuStr];
+            [recordingArrs addObject:menuStr];
+            displayLabel.hidden = NO;
+            displayLabel.text = menuStr;
+            NSLog(@"%@",menuStr);
             break;
         }
     }
@@ -229,52 +240,18 @@
                                 @"鱼香肉丝🥩", nil];
     [self randomMenuWithVegetablesArrs:vegetablesArrs meatArrs:meatArrs];
 }
-- (void)randomMenuWithVegetablesArrs:(NSMutableArray*)vegetablesArrs meatArrs:(NSMutableArray*)meatArrs {
+- (void)randomMenuWithVegetablesArrs:(NSMutableArray*)vegetablesArrs
+                            meatArrs:(NSMutableArray*)meatArrs {
     
     // ************************* vegetables menu ************************* //
-    if (_recordingVegetables.count > 7) {
-        [_recordingVegetables removeAllObjects];
-    }
-    NSInteger vegetablesIndex = 0;
-    NSInteger vegetablesCount = vegetablesArrs.count;
-    while (vegetablesIndex < vegetablesCount) {
-        vegetablesIndex ++;
-        if (vegetablesArrs.count == 0) {
-            break;
-        }
-        NSString* vegetablesStr = vegetablesArrs[arc4random()%vegetablesArrs.count];
-        
-        if (![_recordingVegetables containsObject:vegetablesStr]) {
-            [vegetablesArrs removeObject:vegetablesStr];
-            [_recordingVegetables addObject:vegetablesStr];
-            _vegetablesLabel.hidden = NO;
-            _vegetablesLabel.text = vegetablesStr;
-            NSLog(@"%@",vegetablesStr);
-            break;
-        }
-    }
-    // ************************* meat menu ************************* //    
-    if (_recordingMeatr.count > 7) {
-        [_recordingMeatr removeAllObjects];
-    }
-    NSInteger meatIndex = 0;
-    NSInteger meatCount = meatArrs.count;
-    while (meatIndex < meatCount) {
-        meatIndex ++;
-        if (meatArrs.count == 0) {
-            break;
-        }
-        NSString* meatStr = meatArrs[arc4random()%meatArrs.count];
-        
-        if (![_recordingMeatr containsObject:meatStr]) {
-            [meatArrs removeObject:meatStr];
-            [_recordingMeatr addObject:meatStr];
-            _meatLabel.hidden = NO;
-            _meatLabel.text = meatStr;
-            NSLog(@"%@",meatStr);
-            break;
-        }
-    }
+    [self filterMenuWithRecording:_recordingVegetables
+                         menuArrs:vegetablesArrs
+                     displayLabel:_vegetablesLabel];
+    
+    // ************************* meat menu ************************* //
+    [self filterMenuWithRecording:_recordingMeatr
+                         menuArrs:meatArrs
+                     displayLabel:_meatLabel];
 }
 - (void)dinnerBtnWithPressed {
     NSMutableArray* dinnerArrs = [NSMutableArray arrayWithObjects:
@@ -287,27 +264,9 @@
                                   @"臭豆腐、烤面筋、水果",
                                   @"包子、水果",
                                   @"八宝粥、水果", nil];
-    if (_recordingDinner.count > 7) {
-        [_recordingDinner removeAllObjects];
-    }
-    NSInteger dinnerIndex = 0;
-    NSInteger dinnerCount = dinnerArrs.count;
-    while (dinnerIndex < dinnerCount) {
-        dinnerIndex ++;
-        if (dinnerArrs.count == 0) {
-            break;
-        }
-        NSString* dinnerStr = dinnerArrs[arc4random()%dinnerArrs.count];
-        
-        if (![_recordingDinner containsObject:dinnerStr]) {
-            [dinnerArrs removeObject:dinnerStr];
-            [_recordingDinner addObject:dinnerStr];
-            _dinnerLabel.hidden = NO;
-            _dinnerLabel.text = dinnerStr;
-            NSLog(@"%@",dinnerStr);
-            break;
-        }
-    }
+    [self filterMenuWithRecording:_recordingDinner
+                         menuArrs:dinnerArrs
+                     displayLabel:_dinnerLabel];
 }
 
 @end
