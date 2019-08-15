@@ -154,6 +154,7 @@
         make.size.mas_equalTo(CGSizeMake(label_W, label_H));
     }];
 }
+// 早餐菜单按钮的点击事件
 - (void)breakfastBtnWithPressed {
     _count ++;
     NSLog(@"\n 编号：-> %ld",_count);
@@ -174,6 +175,14 @@
                          menuArrs:breakfastArrs
                      displayLabel:_breakfastLabel];
 }
+
+/**
+ 过滤7天重复的菜单，保证7天不重样...
+
+ @param recordingArrs 7天内的菜单数组
+ @param menuArrs 菜单数组
+ @param displayLabel 显示label
+ */
 - (void)filterMenuWithRecording:(NSMutableArray*)recordingArrs
                        menuArrs:(NSMutableArray*)menuArrs
                    displayLabel:(UILabel*)displayLabel {
@@ -199,6 +208,7 @@
         }
     }
 }
+// 中午菜单按钮的点击事件
 - (void)orderDishesBtnWithPressed {
     NSMutableArray* vegetablesArrs = [NSMutableArray arrayWithObjects:
                                       @"孜然杏鲍菇🍄",
@@ -240,6 +250,7 @@
                                 @"鱼香肉丝🥩", nil];
     [self randomMenuWithVegetablesArrs:vegetablesArrs meatArrs:meatArrs];
 }
+// 随机菜单
 - (void)randomMenuWithVegetablesArrs:(NSMutableArray*)vegetablesArrs
                             meatArrs:(NSMutableArray*)meatArrs {
     
@@ -253,6 +264,7 @@
                          menuArrs:meatArrs
                      displayLabel:_meatLabel];
 }
+// 晚上点菜按钮的点击事件
 - (void)dinnerBtnWithPressed {
     NSMutableArray* dinnerArrs = [NSMutableArray arrayWithObjects:
                                   @"稀饭、凉菜",
